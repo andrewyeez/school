@@ -20,4 +20,4 @@ Course has one Teacher
 ##Testing##
 I have not looked into java testing but I am familiar with JUnit so I might just end up using that.  
 
-// I will use what I learned from Ruby on Rails and apply it to this Java project.  
+// I will build this java project with an MVC architecture
