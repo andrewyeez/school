@@ -20,4 +20,7 @@ Course has one Teacher
 ##Testing##
 I have not looked into java testing but I am familiar with JUnit so I might just end up using that.  
 
+## ERD ##
+https://github.com/andrewyeez/school/wiki/ERD  
+
 // I will build this java project with an MVC architecture
