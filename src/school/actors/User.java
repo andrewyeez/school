@@ -11,10 +11,10 @@ package school.actors;
  */
 public class User {
     // public variables fname, lname, dob, courseID
-    public String fname, lname, dob, role;
-    public int courseID;
+    public String fname, lname, dob, role, courseID;
+    
     // by default, the role is a student and an admin has to change the role.
-    public User(String _fname, String _lname, String _dob, int _courseID, String _role){
+    public User(String _fname, String _lname, String _dob, String _courseID, String _role){
         fname = _fname;
         lname = _lname;
         dob = _dob;
@@ -33,14 +33,26 @@ public class User {
     public void setFname(String _fname){ fname = _fname; }
     public void setLname(String _lname){ lname = _lname; }
     public void setDob(String _dob){ dob = _dob; }
-    public void setCourseID(int _courseID){ courseID = _courseID; }
+    public void setCourseID(String _courseID){ courseID = _courseID; }
     public void setRole(String _role){ role = _role; }
 
     // getter
     public String getFname(){return fname;}
     public String getLname(){return lname;}
     public String getDob(){return dob;}
-    public int getCourseID(){return courseID;}
+    public String getCourseID(){return courseID;}
     public String getRole(){ return role; }
+    
+    // enroll to a course
+    public boolean enroll(int _courseID){
+        if(this.courseID.length() > 1){
+            this.courseID = this.courseID + "," + _courseID;
+            return true;
+        }else if(this.courseID.length() == 0){
+            this.courseID = Integer.toString(_courseID);
+            return true;
+        }
+        return false;
+    }
     
 }
