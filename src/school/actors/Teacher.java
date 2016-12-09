@@ -15,7 +15,7 @@ package school.actors;
 public class Teacher extends User{
     String department;
     int userID;
-    // Using Users constructors
+    
     public Teacher(){
       department = "";
       userID = 0;

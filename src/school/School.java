@@ -5,8 +5,6 @@
  */
 package school;
 
-import school.actors.Student;
-
 /**
  *
  * @author andrewyee
