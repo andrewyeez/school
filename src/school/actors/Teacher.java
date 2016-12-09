@@ -6,17 +6,24 @@
 package school.actors;
 
 /**
- * Teacher has many courses
+ * Teacher has many courses  
+ * Teacher is just a child of User
+ * Im not sure if there should only be 1 table for User/Teacher/Student
+ * 
  * @author andrewyee
  */
 public class Teacher extends User{
-    String role = "teacher";
+    String department;
+    int userID;
     // Using Users constructors
-    public Teacher(String _fname, String _lname, String _courseID, String _dob){
-        super(_fname,_lname,_dob,_courseID,"teacher");
-    }
     public Teacher(){
-        super();
+      department = "";
+      userID = 0;
+    }
+    
+    public Teacher(String _department, int _userID){
+        department = _department;
+        userID = _userID;
     }
     
 }

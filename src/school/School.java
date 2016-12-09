@@ -19,8 +19,6 @@ public class School {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Student c = new Student("Andrew","Yee","","");
-        System.out.println(c.getFname() + " " + c.getLname() + " is a " + c.getRole());
     }
     
 }

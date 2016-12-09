@@ -10,13 +10,18 @@ package school.actors;
  * @author andrewyee
  */
 public class Student extends User{
-    String role = "student";
-    // Using Users constructors
-    public Student(String _fname, String _lname, String _courseID, String _dob){
-        super(_fname,_lname,_dob,_courseID, "student");
-    }
+    boolean canEnroll;
+    String standing;
+    int userID;
+    
     public Student(){
-        super();
+       canEnroll = false;
+       standing = "";
+       userID = 0;
     }
-
+    public Student(boolean _canEnroll, String _standing, int _userID){
+        canEnroll = _canEnroll;
+        standing = _standing;
+        userID = _userID;
+    }
 }
