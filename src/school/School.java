@@ -5,6 +5,7 @@
  */
 package school;
 
+import school.db.SchoolDatabase;
 /**
  *
  * @author andrewyee
@@ -16,7 +17,8 @@ public class School {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+        SchoolDatabase db = new SchoolDatabase();
+        db.connect();
     }
     
 }
