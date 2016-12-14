@@ -15,16 +15,21 @@ public class SchoolDatabase {
     String url = "jdbc:derby://localhost:1527/school";
     String name = "dummy";
     String pw = "password";
-    public void connect(){
+    CreateSchoolTable query = new CreateSchoolTable();
+    public void createSchoolTables(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
-            try (Connection con = DriverManager.getConnection(url,name,pw)) {
-                String mySqlQuery = "";
-                Statement stmt=con.createStatement();
-                ResultSet rs=stmt.executeQuery(mySqlQuery);
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                System.out.println(stmt.executeUpdate(query.createUser));
+                System.out.println(stmt.executeUpdate(query.createTeacher));
+                System.out.println(stmt.executeUpdate(query.createCourse));
+                System.out.println(stmt.executeUpdate(query.createStudent));
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }  
-    }  
+    }
+    
 }

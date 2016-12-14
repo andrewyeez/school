@@ -9,7 +9,7 @@ package school.db;
  *
  * @author AndrewPro
  */
-public class CreateSchoolTables {
+public class CreateSchoolTable {
     String createTeacher = "create table school" +
                             ".TEACHER " +
                             "(ID integer NOT NULL, " +
@@ -42,9 +42,9 @@ public class CreateSchoolTables {
                            "(ID integer NOT NULL, " +
                            "CAN_ENROLL boolean NOT NULL, " +
                            "STANDING varchar(10) NOT NULL, " +
-                           "COURSE_ID integer, " +
+                           "TEACHER_ID integer, " +
                            "USER_ID integer NOT NULL, " +
-                           "FOREIGN KEY (COURSE_ID) references COURSE," +
                            "FOREIGN KEY (USER_ID) references USER," +
+                           "FOREIGN KEY (TEACHER_ID) references TEACHER," +
                            "PRIMARY KEY (ID))";
 }
