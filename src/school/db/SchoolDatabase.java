@@ -16,20 +16,61 @@ public class SchoolDatabase {
     String name = "dummy";
     String pw = "password";
     CreateSchoolTable query = new CreateSchoolTable();
-    public void createSchoolTables(){
+    
+    public void createAllSchoolTables(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (
                 Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
                 Statement stmt  = con.createStatement();
-                System.out.println(stmt.executeUpdate(query.createUser));
-                System.out.println(stmt.executeUpdate(query.createTeacher));
-                System.out.println(stmt.executeUpdate(query.createCourse));
-                System.out.println(stmt.executeUpdate(query.createStudent));
+                System.out.println("##    CREATING SCHOOL USER   ##");
+                stmt.executeUpdate(query.createSchoolUser);
+                System.out.println("##    CREATING TEACHER       ##");
+                stmt.executeUpdate(query.createTeacher);
+                System.out.println("##    CREATING COURSE        ##");
+                stmt.executeUpdate(query.createCourse);
+                System.out.println("##    CREATING STUDENT       ##");
+                stmt.executeUpdate(query.createStudent);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }  
     }
     
+    public void dropAllSchoolTables(){
+        String setF = "DISABLE KEYS";
+        String school_user = "DROP TABLE SCHOOL_USER";
+        String teacher = "DROP TABLE TEACHER";
+        String course = "DROP TABLE COURSE";
+        String student = "DROP TABLE STUDENT";
+        String setT = "SET FOREIGN_KEY_CHECKS=1";
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
+                Statement stmt  = con.createStatement();
+                System.out.println("##    DROPPING ALL TABLE     ##");
+                stmt.executeUpdate(setF);
+                stmt.executeUpdate(school_user);
+                stmt.executeUpdate(teacher);
+                stmt.executeUpdate(course);
+                stmt.executeUpdate(student);
+                stmt.executeUpdate(setT);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }  
+    }
 }
