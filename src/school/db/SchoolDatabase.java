@@ -7,7 +7,8 @@ package school.db;
 import java.sql.*;
 
 /**
- * This class will be the main DB file for CRUD
+ * Order of the creation and dropping of tables are important because
+ * the tables share are relationship with each other.
  * 
  * @author AndrewPro
  */
@@ -40,7 +41,7 @@ public class SchoolDatabase {
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
-        }  
+        }
     }
     
     public void dropAllSchoolTables(){
@@ -67,5 +68,30 @@ public class SchoolDatabase {
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }  
+    }
+    
+    public void seedUserTable(){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
+                Statement stmt  = con.createStatement();
+                System.out.println("##    SEEDING SCHOOL USER    ##");
+                System.out.println("##    SCHOOL USER 1          ##");
+                stmt.executeUpdate(query.seedSchoolUser1);
+                System.out.println("##    SCHOOL USER 2          ##");
+                stmt.executeUpdate(query.seedSchoolUser2);
+                System.out.println("##    SCHOOL USER 3          ##");
+                stmt.executeUpdate(query.seedSchoolUser3);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
     }
 }
