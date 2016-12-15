@@ -18,7 +18,8 @@ public class School {
     public static void main(String[] args) {
         // TODO code application logic here
         SchoolDatabase db = new SchoolDatabase();
-        db.seedUserTable();
+        // db.dropAllSchoolTables();
+        db.createAndSeedSchoolTables();
     }
     
 }

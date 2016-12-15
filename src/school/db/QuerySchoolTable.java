@@ -33,11 +33,9 @@ public class QuerySchoolTable {
         "create table " +
         "COURSE " +
         "(ID integer NOT NULL, " +
-        "CAN_ENROLL boolean NOT NULL, " +
-        "STANDING varchar(10) NOT NULL, " +
-        "TEACHER_ID integer, " +
-        "SCHOOL_USER_ID integer, " +
-        "FOREIGN KEY (SCHOOL_USER_ID) references SCHOOL_USER," +
+        "NAME varchar(40), " +
+        "DESCRIPTION varchar(80), " +
+        "TEACHER_ID integer NOT NULL, " +
         "FOREIGN KEY (TEACHER_ID) references TEACHER," +
         "PRIMARY KEY (ID))";
     
@@ -89,4 +87,48 @@ public class QuerySchoolTable {
         + "'teacher'"
         + ")";
     
+    String seedTeacher1 = 
+       "insert into "
+        + "TEACHER "
+        + "(ID,SCHOOL_USER_ID, DEPARTMENT) "
+        + "VALUES(" 
+        + "1,"
+        + "3,"
+        + "'science'"
+        + ")";
+    
+    String seedCourse1 = 
+       "insert into "
+        + "COURSE "
+        + "(ID, NAME, DESCRIPTION, TEACHER_ID) "
+        + "VALUES(" 
+        + "1,"
+        + "'MATH 1',"
+        + "'A very difficult class',"
+        + "1"
+        + ")";
+    
+    String seedStudent1 = 
+       "insert into "
+        + "STUDENT "
+        + "(ID, CAN_ENROLL, STANDING, COURSE_ID, SCHOOL_USER_ID) "
+        + "VALUES(" 
+        + "1,"
+        + "true,"
+        + "'freshman',"
+        + "1,"
+        + "1"
+        + ")";
+    
+    String seedStudent2 = 
+       "insert into "
+        + "STUDENT "
+        + "(ID, CAN_ENROLL, STANDING, COURSE_ID, SCHOOL_USER_ID) "
+        + "VALUES(" 
+        + "2,"
+        + "false,"
+        + "'senior',"
+        + "1,"
+        + "2"
+        + ")";
 }

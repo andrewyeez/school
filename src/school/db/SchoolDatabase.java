@@ -18,6 +18,11 @@ public class SchoolDatabase {
     String pw = "password";
     QuerySchoolTable query = new QuerySchoolTable();
     
+    public void createAndSeedSchoolTables(){
+        createAllSchoolTables();
+        seedAllSchoolTables();
+    }
+    
     public void createAllSchoolTables(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -93,5 +98,77 @@ public class SchoolDatabase {
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }
+    }
+    
+    public void seedTeacherTable(){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
+                Statement stmt  = con.createStatement();
+                System.out.println("##    SEEDING TEACHER        ##");
+                System.out.println("##    TEACHER 1              ##");
+                stmt.executeUpdate(query.seedTeacher1);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    
+    public void seedCourseTable(){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
+                Statement stmt  = con.createStatement();
+                System.out.println("##    SEEDING COURSE         ##");
+                System.out.println("##    COURSE 1               ##");
+                stmt.executeUpdate(query.seedCourse1);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    
+    public void seedStudentTable(){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
+                Statement stmt  = con.createStatement();
+                System.out.println("##    SEEDING STUDENT         ##");
+                System.out.println("##    STUDENT 1               ##");
+                stmt.executeUpdate(query.seedStudent1);
+                System.out.println("##    STUDENT 2               ##");
+                stmt.executeUpdate(query.seedStudent2);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    
+    public void seedAllSchoolTables(){
+        seedUserTable();
+        seedTeacherTable();
+        seedCourseTable();
+        seedStudentTable();
     }
 }
