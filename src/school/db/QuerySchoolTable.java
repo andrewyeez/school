@@ -9,7 +9,7 @@ package school.db;
  *
  * @author AndrewPro
  */
-public class CreateSchoolTable {
+public class QuerySchoolTable {
     
     String createSchoolUser = 
         "create table " +
@@ -52,5 +52,10 @@ public class CreateSchoolTable {
         "FOREIGN KEY (COURSE_ID) references COURSE," +
         "FOREIGN KEY (SCHOOL_USER_ID) references SCHOOL_USER," +
         "PRIMARY KEY (ID))";
+    
+    String dropSchoolUser = "DROP TABLE SCHOOL_USER";
+    String dropTeacher = "DROP TABLE TEACHER";
+    String dropCourse = "DROP TABLE COURSE";
+    String dropStudent = "DROP TABLE STUDENT";
 
 }

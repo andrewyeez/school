@@ -15,7 +15,7 @@ public class SchoolDatabase {
     String url = "jdbc:derby://localhost:1527/school";
     String name = "dummy";
     String pw = "password";
-    CreateSchoolTable query = new CreateSchoolTable();
+    QuerySchoolTable query = new QuerySchoolTable();
     
     public void createAllSchoolTables(){
         try{  
@@ -44,12 +44,6 @@ public class SchoolDatabase {
     }
     
     public void dropAllSchoolTables(){
-        String setF = "DISABLE KEYS";
-        String school_user = "DROP TABLE SCHOOL_USER";
-        String teacher = "DROP TABLE TEACHER";
-        String course = "DROP TABLE COURSE";
-        String student = "DROP TABLE STUDENT";
-        String setT = "SET FOREIGN_KEY_CHECKS=1";
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (
@@ -58,13 +52,14 @@ public class SchoolDatabase {
                 System.out.println("##   SCHOOL DATABASE TABLE   ##");
                 System.out.println("###############################");
                 Statement stmt  = con.createStatement();
-                System.out.println("##    DROPPING ALL TABLE     ##");
-                stmt.executeUpdate(setF);
-                stmt.executeUpdate(school_user);
-                stmt.executeUpdate(teacher);
-                stmt.executeUpdate(course);
-                stmt.executeUpdate(student);
-                stmt.executeUpdate(setT);
+                System.out.println("##    DROPPING STUDENT       ##");
+                stmt.executeUpdate(query.dropStudent);
+                System.out.println("##    DROPPING COURSE        ##");
+                stmt.executeUpdate(query.dropCourse);
+                System.out.println("##    DROPPING TEACHER       ##");
+                stmt.executeUpdate(query.dropTeacher);
+                System.out.println("##    DROPPING SCHOOL USER   ##");
+                stmt.executeUpdate(query.dropSchoolUser);
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
