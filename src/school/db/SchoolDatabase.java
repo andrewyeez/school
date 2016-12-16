@@ -43,6 +43,8 @@ public class SchoolDatabase {
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
+                stmt.close();
+                con.close();
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
@@ -69,6 +71,8 @@ public class SchoolDatabase {
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
+                stmt.close();
+                con.close();
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
@@ -94,6 +98,8 @@ public class SchoolDatabase {
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
+                stmt.close();
+                con.close();
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
@@ -115,6 +121,8 @@ public class SchoolDatabase {
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
+                stmt.close();
+                con.close();
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
@@ -136,6 +144,8 @@ public class SchoolDatabase {
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
+                stmt.close();
+                con.close();
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
@@ -159,6 +169,8 @@ public class SchoolDatabase {
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
                 System.out.println("###############################");
+                stmt.close();
+                con.close();
             }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
@@ -180,14 +192,13 @@ public class SchoolDatabase {
      */
     
     // create user
-    public void createSchoolUser(int _id, String _fname, String _lname, 
-            String _role){
+    public void createSchoolUser(int _id, String _fname, String _lname, String _role){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
                 Statement stmt  = con.createStatement();
-                stmt.executeQuery("insert into "
-                                + "SCHOOL_USER "
+                stmt.executeQuery("INSERT INTO "
+                                + "DUMMY.SCHOOL_USER "
                                 + "(ID,FIRST_NAME, LAST_NAME, ROLE) "
                                 + "VALUES(" 
                                 + " "+_id+","
@@ -195,14 +206,115 @@ public class SchoolDatabase {
                                 + "'"+_lname+"',"
                                 + "'"+_role+"'"
                                 + ")");
-                }
+                System.out.println("Created School User w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }
     }
     // read user
+    public void readSchoolUser(){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM "
+                                + "DUMMY.SCHOOL_USER");
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                    for (int i = 1; i <= columnCount; i++) {
+                        if (i > 1) System.out.println("");
+                        String columnValue = rs.getString(i);
+                        System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
+                    }
+                        System.out.println("");  
+                    }
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void readSchoolUserByID(int _id){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM "
+                                + "DUMMY.SCHOOL_USER "
+                                + "WHERE ID = "
+                                +_id);
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    if (i > 1) System.out.println("");
+                    String columnValue = rs.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
+                }
+                    System.out.println("");  
+                }
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
     // update user
+    public void updateSchoolUserLastNameByID(int _id, String _newLastName){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.SCHOOL_USER SET "
+                                + "LAST_NAME = '" + _newLastName + "' "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated School User w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateSchoolUserFirstNameByID(int _id, String _newFirstName){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.SCHOOL_USER SET "
+                                + "FIRST_NAME = '" + _newFirstName + "' "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated School User w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
     // delete user
-    
-    
+    public void deleteSchoolUserByID(int _id){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("DELETE FROM"
+                                + "DUMMY.SCHOOL_USER "
+                                + "WHERE ID = " + _id);
+                System.out.println("Deleted School User w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }   
 }
