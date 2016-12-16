@@ -300,14 +300,14 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    public void updateTeacherDepartmentByID(int _id, String _department){
+    public void updateTeacherByID(int _id, String columnName, String updateValue){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
                 Statement stmt  = con.createStatement();
                 stmt.executeUpdate("UPDATE "
                                 + "DUMMY.TEACHER SET "
-                                + "DEPARTMENT = '" + _department + "' "
+                                + columnName + " = " + updateValue + " "
                                 + "WHERE ID = " + _id);
                 System.out.println("Updated Teacher w/ ID: " + _id);
                 stmt.close();
@@ -453,5 +453,4 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    
 }

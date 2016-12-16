@@ -5,7 +5,6 @@
  */
 package school;
 
-import school.db.SchoolDatabase;
 /**
  *
  * @author andrewyee
