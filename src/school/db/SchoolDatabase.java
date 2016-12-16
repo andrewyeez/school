@@ -151,10 +151,10 @@ public class SchoolDatabase {
                 System.out.println("##   SCHOOL DATABASE TABLE   ##");
                 System.out.println("###############################");
                 Statement stmt  = con.createStatement();
-                System.out.println("##    SEEDING STUDENT         ##");
-                System.out.println("##    STUDENT 1               ##");
+                System.out.println("##    SEEDING STUDENT        ##");
+                System.out.println("##    STUDENT 1              ##");
                 stmt.executeUpdate(query.seedStudent1);
-                System.out.println("##    STUDENT 2               ##");
+                System.out.println("##    STUDENT 2              ##");
                 stmt.executeUpdate(query.seedStudent2);
                 System.out.println("###############################");
                 System.out.println("##        COMPLETED          ##");
@@ -171,4 +171,38 @@ public class SchoolDatabase {
         seedCourseTable();
         seedStudentTable();
     }
+    
+    
+    /**
+     * 
+     *  Basic CRUD methods 
+     * 
+     */
+    
+    // create user
+    public void createSchoolUser(int _id, String _fname, String _lname, 
+            String _role){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeQuery("insert into "
+                                + "SCHOOL_USER "
+                                + "(ID,FIRST_NAME, LAST_NAME, ROLE) "
+                                + "VALUES(" 
+                                + " "+_id+","
+                                + "'"+_fname+"',"
+                                + "'"+_lname+"',"
+                                + "'"+_role+"'"
+                                + ")");
+                }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    // read user
+    // update user
+    // delete user
+    
+    
 }
