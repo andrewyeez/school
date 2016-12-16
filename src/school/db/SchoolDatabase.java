@@ -18,39 +18,6 @@ public class SchoolDatabase {
     String pw = "password";
     QuerySchoolTable query = new QuerySchoolTable();
     
-    public void createAndSeedSchoolTables(){
-        createAllSchoolTables();
-        seedAllSchoolTables();
-    }
-    
-    public void createAllSchoolTables(){
-        try{  
-            Class.forName("org.apache.derby.jdbc.ClientDriver");  
-            try (
-                Connection con = DriverManager.getConnection(url,name,pw)){
-                System.out.println("###############################");
-                System.out.println("##   SCHOOL DATABASE TABLE   ##");
-                System.out.println("###############################");
-                Statement stmt  = con.createStatement();
-                System.out.println("##    CREATING SCHOOL USER   ##");
-                stmt.executeUpdate(query.createSchoolUser);
-                System.out.println("##    CREATING TEACHER       ##");
-                stmt.executeUpdate(query.createTeacher);
-                System.out.println("##    CREATING COURSE        ##");
-                stmt.executeUpdate(query.createCourse);
-                System.out.println("##    CREATING STUDENT       ##");
-                stmt.executeUpdate(query.createStudent);
-                System.out.println("###############################");
-                System.out.println("##        COMPLETED          ##");
-                System.out.println("###############################");
-                stmt.close();
-                con.close();
-            }
-        }catch(ClassNotFoundException | SQLException e){ 
-                System.out.println(e);
-        }
-    }
-    
     public void dropAllSchoolTables(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -77,6 +44,22 @@ public class SchoolDatabase {
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }  
+    }
+    public void deleteEntryByTableID(int _id, String tableName){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("DELETE FROM"
+                                + "DUMMY." + tableName
+                                + " WHERE ID = " + _id);
+                System.out.println("Deleted "+  tableName + " w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
     }
     
     public void seedUserTable(){
@@ -105,7 +88,6 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    
     public void seedTeacherTable(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -128,7 +110,6 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    
     public void seedCourseTable(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -151,7 +132,6 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    
     public void seedStudentTable(){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -176,22 +156,44 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    
     public void seedAllSchoolTables(){
         seedUserTable();
         seedTeacherTable();
         seedCourseTable();
         seedStudentTable();
     }
-    
-    
-    /**
-     * 
-     *  Basic CRUD methods 
-     * 
-     */
-    
-    // create user
+
+    public void createAndSeedSchoolTables(){
+        createAllSchoolTables();
+        seedAllSchoolTables();
+    }
+    public void createAllSchoolTables(){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (
+                Connection con = DriverManager.getConnection(url,name,pw)){
+                System.out.println("###############################");
+                System.out.println("##   SCHOOL DATABASE TABLE   ##");
+                System.out.println("###############################");
+                Statement stmt  = con.createStatement();
+                System.out.println("##    CREATING SCHOOL USER   ##");
+                stmt.executeUpdate(query.createSchoolUser);
+                System.out.println("##    CREATING TEACHER       ##");
+                stmt.executeUpdate(query.createTeacher);
+                System.out.println("##    CREATING COURSE        ##");
+                stmt.executeUpdate(query.createCourse);
+                System.out.println("##    CREATING STUDENT       ##");
+                stmt.executeUpdate(query.createStudent);
+                System.out.println("###############################");
+                System.out.println("##        COMPLETED          ##");
+                System.out.println("###############################");
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
     public void createSchoolUser(int _id, String _fname, String _lname, String _role){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -214,14 +216,200 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    // read user
-    public void readSchoolUser(){
+    public void createStudent(int _id, boolean _can_enroll, String _standing, int _course_id, int _school_user_id){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeQuery("INSERT INTO "
+                                + "DUMMY.STUDENT "
+                                + "(ID, CAN_ENROLL, STANDING, COURSE_ID, SCHOOL_USER_ID) "
+                                + "VALUES(" 
+                                + " "+_id+","
+                                + ""+_can_enroll+","
+                                + "'"+_standing+"',"
+                                + ""+_course_id+","
+                                + ""+_school_user_id+""
+                                + ")");
+                System.out.println("Created Student w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void createCourse(int _id, String _name, String _description, int _teacher_id){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeQuery("INSERT INTO "
+                                + "DUMMY.COURSE "
+                                + "(ID, NAME, DESCRIPTION, TEACHER_ID) "
+                                + "VALUES(" 
+                                + " "+_id+","
+                                + "'"+_name+"',"
+                                + "'"+_description+"',"        
+                                + ""+_teacher_id+""
+                                + ")");
+                System.out.println("Created Course w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void createTeacher(int _id, int _school_user_id, String _department){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeQuery("INSERT INTO "
+                                + "DUMMY.TEACHER "
+                                + "(ID, SCHOOL_USER_ID, DEPARTMENT) "
+                                + "VALUES(" 
+                                + " "+_id+","
+                                + ""+_school_user_id+","
+                                + "'"+_department+"'"
+                                + ")");
+                System.out.println("Created Teacher w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+
+    public void updateSchoolUserByID(int _id, String columnName, String updatedValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.SCHOOL_USER SET "
+                                + columnName +" = '" + updatedValue + "' "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated School User w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateTeacherDepartmentByID(int _id, String _department){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.TEACHER SET "
+                                + "DEPARTMENT = '" + _department + "' "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated Teacher w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateCourseByID(int _id, String columnName, int updateValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.COURSE SET "
+                                + " " + columnName + " = " + updateValue + " "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated Course w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateCourseByID(int _id, String columnName, String updateValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.COURSE SET "
+                                + " " + columnName + " = '" + updateValue + "' "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated Course w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateStudentByID(int _id, String columnName, String updatedValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.STUDENT SET "
+                                + columnName +" = '" + updatedValue + "' "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated Student w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateStudentByID(int _id, String columnName, boolean updatedValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.STUDENT SET "
+                                + columnName +" = " + updatedValue + " "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated Student w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    public void updateStudentByID(int _id, String columnName, int updatedValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.STUDENT SET "
+                                + columnName +" = " + updatedValue + " "
+                                + "WHERE ID = " + _id);
+                System.out.println("Updated Student w/ ID: " + _id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    
+    public void readAllByTableName(String tableName){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
                 Statement stmt  = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM "
-                                + "DUMMY.SCHOOL_USER");
+                                + "DUMMY." + tableName);
                 ResultSetMetaData rsmd = rs.getMetaData();
                 int columnCount = rsmd.getColumnCount();
                 while (rs.next()) {
@@ -239,14 +427,14 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    public void readSchoolUserByID(int _id){
+    public void readEntryByTableNameAndID(int _id, String tableName){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
                 Statement stmt  = con.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM "
-                                + "DUMMY.SCHOOL_USER "
-                                + "WHERE ID = "
+                                + "DUMMY." + tableName
+                                + " WHERE ID = "
                                 +_id);
                 ResultSetMetaData rsmd = rs.getMetaData();
                 int columnCount = rsmd.getColumnCount();
@@ -265,56 +453,5 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    // update user
-    public void updateSchoolUserLastNameByID(int _id, String _newLastName){
-        try{  
-            Class.forName("org.apache.derby.jdbc.ClientDriver");  
-            try (Connection con = DriverManager.getConnection(url,name,pw)){
-                Statement stmt  = con.createStatement();
-                stmt.executeUpdate("UPDATE "
-                                + "DUMMY.SCHOOL_USER SET "
-                                + "LAST_NAME = '" + _newLastName + "' "
-                                + "WHERE ID = " + _id);
-                System.out.println("Updated School User w/ ID: " + _id);
-                stmt.close();
-                con.close();
-            }
-        }catch(ClassNotFoundException | SQLException e){ 
-                System.out.println(e);
-        }
-    }
-    public void updateSchoolUserFirstNameByID(int _id, String _newFirstName){
-        try{  
-            Class.forName("org.apache.derby.jdbc.ClientDriver");  
-            try (Connection con = DriverManager.getConnection(url,name,pw)){
-                Statement stmt  = con.createStatement();
-                stmt.executeUpdate("UPDATE "
-                                + "DUMMY.SCHOOL_USER SET "
-                                + "FIRST_NAME = '" + _newFirstName + "' "
-                                + "WHERE ID = " + _id);
-                System.out.println("Updated School User w/ ID: " + _id);
-                stmt.close();
-                con.close();
-            }
-        }catch(ClassNotFoundException | SQLException e){ 
-                System.out.println(e);
-        }
-    }
-    // delete user
-    public void deleteSchoolUserByID(int _id){
-        try{  
-            Class.forName("org.apache.derby.jdbc.ClientDriver");  
-            try (Connection con = DriverManager.getConnection(url,name,pw)){
-                Statement stmt  = con.createStatement();
-                stmt.executeUpdate("DELETE FROM"
-                                + "DUMMY.SCHOOL_USER "
-                                + "WHERE ID = " + _id);
-                System.out.println("Deleted School User w/ ID: " + _id);
-                stmt.close();
-                con.close();
-            }
-        }catch(ClassNotFoundException | SQLException e){ 
-                System.out.println(e);
-        }
-    }   
+    
 }
