@@ -18,12 +18,13 @@ public class SchoolUser {
         lname = _lname;
         role = _role;
     }
+    
     public SchoolUser(){
         fname = "";
         lname = "";
         role = "";
     }
-    
+
     public void setFname(String _fname){ fname = _fname; }
     public void setLname(String _lname){ lname = _lname; }
     public void setRole(String _role){ role = _role; }

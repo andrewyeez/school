@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package school.actors;
-
+import school.db.SchoolDatabase;
+import school.helpers.MakeNumber;
 /**
  * Student has many courses
  * Student has one user
@@ -12,28 +13,50 @@ package school.actors;
  * @author andrewyee
  */
 public class Student extends SchoolUser{
-    boolean canEnroll;
+    SchoolDatabase db = new SchoolDatabase();
+    MakeNumber number = new MakeNumber();
+    boolean canEnroll = true;
+    String courseID = "";
     String standing;
-    String courseID;
-    int userID;
     
     public Student(){
-       canEnroll = false;
-       standing = "";
-       courseID = "";
-       userID = 0;
+        super("Enter", "Name", "");
+        standing = "";
     }
-    public Student(boolean _canEnroll, String _standing, String _courseID, int _userID){
-        super("","","");
-        canEnroll = _canEnroll;
+    
+    public Student(String _fname, String _lname, String _standing){
+        super(_fname,_lname, "student");
         standing = _standing;
-        courseID = _courseID;
-        userID = _userID;
     }
     
     // Create a Student
+    // assume that the user used the constructor Student(w/ params) 
+    // use the available variables to fill the info
+    // do some validations before attempting to create
     public boolean newStudent(){
-        
+        int id = number.generateID();
+        int user_id = number.generateID();
+        if(validateForSchoolUser()){
+            db.createSchoolUser(user_id, fname, lname, role);
+        }
+        if(validateForStudent()){
+            db.createStudent(id, canEnroll, standing, courseID, user_id);
+        }
         return true;
     }
+    
+    public boolean validateForSchoolUser(){
+        boolean fnameIsPresent = fname.length() > 0;
+        boolean lnameIsPresent = lname.length() > 0;
+        boolean roleIsPresent = role.length() > 0;
+        return fnameIsPresent && lnameIsPresent && roleIsPresent;
+    }
+    
+    public boolean validateForStudent(){
+        boolean canEnrollIsPresent = canEnroll;
+        boolean standingIsPresent = standing.length() > 0;
+        boolean courseIdIsPresent = courseID.length() > 0;
+        return canEnrollIsPresent && standingIsPresent && courseIdIsPresent;
+    }
+
 }
