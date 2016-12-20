@@ -216,7 +216,7 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    public void createStudent(int _id, boolean _can_enroll, String _standing, int _course_id, int _school_user_id){
+    public void createStudent(int _id, boolean _can_enroll, String _standing, String _course_id, int _school_user_id){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
@@ -228,7 +228,7 @@ public class SchoolDatabase {
                                 + " "+_id+","
                                 + ""+_can_enroll+","
                                 + "'"+_standing+"',"
-                                + ""+_course_id+","
+                                + "'"+_course_id+"',"
                                 + ""+_school_user_id+""
                                 + ")");
                 System.out.println("Created Student w/ ID: " + _id);
