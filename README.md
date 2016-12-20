@@ -21,7 +21,7 @@ Course has one Teacher
 I have not looked into java testing but I am familiar with JUnit so I might just end up using that.  
 
 ## ERD ##
-![alt text](http://i.imgur.com/WSZBY06.png "ERD School DB")
+![alt text](http://i.imgur.com/g5Xz0Cw.png "ERD School DB")
 
 ## Database ##
 ** MUST BE USING NETBEANS AS IDE **  
