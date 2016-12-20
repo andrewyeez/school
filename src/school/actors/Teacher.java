@@ -12,7 +12,7 @@ package school.actors;
  * 
  * @author andrewyee
  */
-public class Teacher extends User{
+public class Teacher extends SchoolUser{
     String department;
     int userID;
     

@@ -11,7 +11,7 @@ package school.actors;
  * 
  * @author andrewyee
  */
-public class Student extends User{
+public class Student extends SchoolUser{
     boolean canEnroll;
     String standing;
     String courseID;
@@ -23,11 +23,17 @@ public class Student extends User{
        courseID = "";
        userID = 0;
     }
-    public Student(boolean _canEnroll, String _standing, String _courseID,
-            int _userID){
+    public Student(boolean _canEnroll, String _standing, String _courseID, int _userID){
+        super("","","");
         canEnroll = _canEnroll;
         standing = _standing;
         courseID = _courseID;
         userID = _userID;
+    }
+    
+    // Create a Student
+    public boolean newStudent(){
+        
+        return true;
     }
 }
