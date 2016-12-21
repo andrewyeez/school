@@ -403,7 +403,7 @@ public class SchoolDatabase {
         }
     }
     
-    public void readAllByTableName(String tableName){
+    public void getAllByTableName(String tableName){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
@@ -427,7 +427,7 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    public void readEntryByTableNameAndID(int _id, String tableName){
+    public void getEntryByTableNameAndID(int _id, String tableName){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
@@ -436,6 +436,33 @@ public class SchoolDatabase {
                                 + "DUMMY." + tableName
                                 + " WHERE ID = "
                                 +_id);
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    if (i > 1) System.out.println("");
+                    String columnValue = rs.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
+                }
+                    System.out.println("");  
+                }
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+    }
+    
+    public void getStudentByLastName(String _lname){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM "
+                                + "DUMMY.SCHOOL_USER"
+                                + " WHERE LAST_NAME = "
+                                + "'" + _lname + "'");
                 ResultSetMetaData rsmd = rs.getMetaData();
                 int columnCount = rsmd.getColumnCount();
                 while (rs.next()) {
