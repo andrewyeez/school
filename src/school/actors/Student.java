@@ -36,13 +36,14 @@ public class Student extends SchoolUser{
     public boolean newStudent(){
         int id = number.generateID();
         int user_id = number.generateID();
-        if(validateForSchoolUser()){
-            db.createSchoolUser(user_id, fname, lname, role);
-        }
-        if(validateForStudent()){
-            db.createStudent(id, canEnroll, standing, courseID, user_id);
-        }
+        if(validateForSchoolUser()){ db.createSchoolUser(user_id, fname, lname, role); }
+        if(validateForStudent()){ db.createStudent(id, canEnroll, standing, courseID, user_id); }
         return true;
+        // failing during creation will result in a SQL error
+    }
+    
+    public void findStudentByLastName(String _lname){
+        db.getStudentByLastName(_lname);
     }
     
     public boolean validateForSchoolUser(){
