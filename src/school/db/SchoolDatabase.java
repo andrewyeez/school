@@ -351,24 +351,24 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    public void updateStudentByID(int _id, String columnName, String updatedValue){
+    public void updateStudentByID(int _school_user_id, String columnName, String updatedValue){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
                 Statement stmt  = con.createStatement();
                 stmt.executeUpdate("UPDATE "
-                                + "DUMMY.STUDENT SET "
+                                + "DUMMY.SCHOOL_USER SET "
                                 + columnName +" = '" + updatedValue + "' "
-                                + "WHERE ID = " + _id);
-                System.out.println("Updated Student w/ ID: " + _id);
+                                + "WHERE ID = " + _school_user_id);
+                System.out.println("Updated Student w/ ID: " + _school_user_id);
                 stmt.close();
                 con.close();
             }
-        }catch(ClassNotFoundException | SQLException e){ 
-                System.out.println(e);
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e);
         }
     }
-    public void updateStudentByID(int _id, String columnName, boolean updatedValue){
+    public void updateStudentByID(int _school_user_id, String columnName, boolean updatedValue){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
@@ -376,8 +376,8 @@ public class SchoolDatabase {
                 stmt.executeUpdate("UPDATE "
                                 + "DUMMY.STUDENT SET "
                                 + columnName +" = " + updatedValue + " "
-                                + "WHERE ID = " + _id);
-                System.out.println("Updated Student w/ ID: " + _id);
+                                + "WHERE SCHOOL_USER_ID = " + _school_user_id);
+                System.out.println("Updated Student w/ SCHOOL_USER_ID: " + _school_user_id);
                 stmt.close();
                 con.close();
             }
@@ -385,7 +385,7 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
-    public void updateStudentByID(int _id, String columnName, int updatedValue){
+    public void updateStudentByID(int _school_user_id, String columnName, int updatedValue){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
             try (Connection con = DriverManager.getConnection(url,name,pw)){
@@ -393,8 +393,8 @@ public class SchoolDatabase {
                 stmt.executeUpdate("UPDATE "
                                 + "DUMMY.STUDENT SET "
                                 + columnName +" = " + updatedValue + " "
-                                + "WHERE ID = " + _id);
-                System.out.println("Updated Student w/ ID: " + _id);
+                                + "WHERE SCHOOL_USER_ID = " + _school_user_id);
+                System.out.println("Updated Student w/ ID: " + _school_user_id);
                 stmt.close();
                 con.close();
             }
