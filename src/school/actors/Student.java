@@ -55,6 +55,37 @@ public class Student extends SchoolUser{
         }
         return false;
     }
+    public boolean updateStudentLastName(int _user_id, String _lname){
+        if((_user_id > 0) && (_lname.length() > 0)){
+            db.getEntryByTableNameAndID(_user_id, "SCHOOL_USER");
+            db.updateStudentByID(_user_id, "LAST_NAME", _lname);
+            db.getEntryByTableNameAndID(_user_id, "SCHOOL_USER");
+            return true;
+        }
+        return false;
+    }
+    public boolean updateStudentStanding(int _user_id, String _standing){
+        if((_user_id > 0) && (_standing.length() > 0)){
+            db.getEntryByTableNameAndID(_user_id, "SCHOOL_USER");
+            db.updateStudentStandingByID(_user_id, _standing);
+            db.getEntryByTableNameAndID(_user_id, "SCHOOL_USER");
+            return true;
+        }
+        return false;
+    }
+    public boolean enrollStudent(int _user_id, int _course_id_){
+        // first grab the the course_id string of the user
+        // format should look like: 123,1,314,56
+        // comma separated integers
+        // create an array of integers from the comma separated integers
+        // check if the courseid is already in the array
+        // check that there is no more than 5 courses 
+        // if not, insert it, if it is then do nothing.
+        // create a string that takes in the integers 
+        // call the update column method for students and update the
+        // course_id column with the 
+        return false;
+    }
     public void findStudentByLastName(String _lname){
         db.getStudentByLastName(_lname);
     }

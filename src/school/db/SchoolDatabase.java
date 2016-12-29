@@ -351,6 +351,23 @@ public class SchoolDatabase {
                 System.out.println(e);
         }
     }
+    public void updateStudentStandingByID(int _school_user_id, String updatedValue){
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                stmt.executeUpdate("UPDATE "
+                                + "DUMMY.STUDENT SET STANDING "
+                                +" = '" + updatedValue + "' "
+                                + "WHERE ID = " + _school_user_id);
+                System.out.println("Updated Student w/ ID: " + _school_user_id);
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e);
+        }
+    }
     public void updateStudentByID(int _school_user_id, String columnName, String updatedValue){
         try{  
             Class.forName("org.apache.derby.jdbc.ClientDriver");  
@@ -452,6 +469,36 @@ public class SchoolDatabase {
         }catch(ClassNotFoundException | SQLException e){ 
                 System.out.println(e);
         }
+    }
+    public String getStudentsCourseIdbyId(int _school_user_id){
+        String courseId = "";
+        try{  
+            Class.forName("org.apache.derby.jdbc.ClientDriver");  
+            try (Connection con = DriverManager.getConnection(url,name,pw)){
+                Statement stmt  = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM "
+                                + "DUMMY.STUDENT "
+                                + "WHERE SCHOOL_USER_ID = "
+                                + _school_user_id);
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    if (i > 1) System.out.println("");
+                    String columnValue = rs.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + ": " + columnValue);
+                    if("COURSE_ID".equals(rsmd.getColumnName(i)))
+                        courseId = columnValue;
+                }
+                    System.out.println("");  
+                }
+                stmt.close();
+                con.close();
+            }
+        }catch(ClassNotFoundException | SQLException e){ 
+                System.out.println(e);
+        }
+        return courseId;
     }
     
     public void getStudentByLastName(String _lname){

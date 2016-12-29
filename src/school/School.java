@@ -16,8 +16,8 @@ public class School {
      */
     public static void main(String[] args) {
        Student st = new Student();
-       // st.findStudentByLastName("Yee");
-       st.updateStudentFirstName(2, "Alexander");
+        st.findStudentByLastName("Yee");
+       // st.updateStudentFirstName(2, "Alexander");
     }
     
 }
